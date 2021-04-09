@@ -4,6 +4,8 @@ $(document).ready(function()
     var interval;
     var timeLeft = 10;
     var score = 0;
+    var highscore = 0;
+    var updateHighScore;
 
     var updateTimeLeft = function(amount)
     {
@@ -11,11 +13,17 @@ $(document).ready(function()
       $('#time-left').text(timeLeft);
     };
 
-    var updateScore = function (amount)
-    {
+    var updateScore = function (amount) {
       score += amount;
       $('#score').text(score);
     };
+
+    var updateHighScore = function (amount) {
+      if (score > highscore) {
+        highscore = score;
+        $('#highScore').text(highscore);
+      }
+    }
 
     var startGame = function ()
     {
@@ -24,6 +32,7 @@ $(document).ready(function()
       if (timeLeft === 0)
       {
         updateTimeLeft(10);
+        updateHighScore(score);
         updateScore(-score);
       }
       interval = setInterval(function () {
